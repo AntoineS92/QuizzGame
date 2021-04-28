@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+  
+}
+
+body {
+  background-color: #002e63;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  color: white;
+}
+
+.flex-question {
+  display: grid;
+  place-items: center;
+  color: white;
+}
+
+.question-screen {
+  background-color: #3d4489;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+#answers-boxes {
+  background-color: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 400px;
+  max-height: 300px;
+  justify-content: space-between;
+  color: white;
+}
+
+#answers-boxes > p {
+  flex: 0 50%;
+  /* padding: 50px;
+    width: 50%;
+    margin: 0px; */
+  border: solid 2px;
+  text-align: center;
+  color: white;
+}
+
+#answers-boxes > p:hover {
+  box-shadow: 10px 5px 5px grey;
+}
+
+.is-hidden-button {
+  visibility: hidden;
+  color: white;
+}
+
+.players {
+  color: black;
+}
