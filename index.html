@@ -6,41 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="./script.js"></script>
   </head>
   <body>
-    <!-- <header class="top-bar">
-      <section id="name"><p>Battle Quizz</p></section>
-      <section id="playerTurn"><p>Player 1, it is your turn !</p></section>
-      <section id="timer"></section>
-    </header> -->
+    <div class="main">
+      <div class="title">
+        <h1>Battle Quizz</h1>
 
-    <div class="title">
-      <h1>Battle Quizz</h1>
-      <button id="btn-play" type="button">PLAY</a>
+        <!-- <section class="players">
+          <div>
+            <input id="input-player" type="text" placeholder="Player name" />
+            <button id="button-player" type="button">Add player</button>
+          </div>
+          <ul class="player-list"></ul>
+        </section> -->
+        <div id="rules">
+          <article>
+            <p>Answer as many questions as you can. You have 3 lives !</p>
+          </article>
+        </div>
+      </div>
+      <button id="btn-play" type="button"><a href="#game">PLAY</a></button>
+    </div>
+
+    <div class="top-bar">
+      <section id="name"><p>Battle Quizz</p></section>
+      <section class="life-screen">
+        <i class="fas fa-heart" id="life1"></i>
+        <i class="fas fa-heart" id="life2"></i>
+        <i class="fas fa-heart" id="life3"></i>
+        <p id="lives"></p>
+      </section>
+      <section id="counter"></section>
     </div>
 
     <div id="game">
-      <div class="players">
-        <div>
-          <input id="input-player" type="text" placeholder="Player name" />
-          <button id="button-player" type="button">Add player</button>
-        </div>
-        <ul class="player-list"></ul>
+      <div class="question-screen">
+        <h2 id="question">Question :</h2>
+
+        <section id="question-box"></section>
       </div>
 
-      <section class="flex-question">
-        <div class="question-screen">
-          <h2>Question :</h2>
-          <section id="question-box"></section>
-          <section id="answers-boxes"></section>
-        </div>
-      </section>
+      <div id="catdif">
+        <p id="category"><span>Category</span> :</p>
+        <p id="difficulty">Difficulty :</p>
+      </div>
+
+      <div class="answer-screen">
+        <section id="answers-boxes"></section>
+
+        <button class="is-hidden-button" id="question-button">
+          Next question ...
+        </button>
+      </div>
     </div>
 
-    <button class="is-hidden-button" id="question-button">
-      Next question ...
-    </button>
+    <footer>
+      <p>Developped with love but without skills by Antoine Sune</p>
+    </footer>
   </body>
 </html>

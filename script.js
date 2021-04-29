@@ -4,22 +4,44 @@ const answersList = document.getElementById("answers-boxes");
 const questionDisplay = document.querySelector("#question-box");
 const answer = document.getElementsByClassName("single-answer");
 const timer = document.querySelector("#timer");
+const playBtn = document.getElementById("btn-play");
+const game = document.getElementById("game");
+const lives = document.getElementById("lives");
+const category = document.getElementById("category");
+const difficulty = document.getElementById("difficulty");
+const counter = document.getElementById("counter");
+let playerLives = 3;
+let questionCounter = 0;
+counter.innerHTML = "0/50";
+
+lives.innerHTML = `You have ${playerLives} lives left !`;
 
 let answersArray = [];
 let questions = null;
 let currentQuestion = 0;
 
+playBtn.addEventListener("click", displayGame);
+
+function displayGame() {
+  console.log("Display clicked");
+  game.style.removeProperty("display");
+}
+
 function displayQuestion() {
   questionDisplay.textContent = questions[currentQuestion].question;
-  console.log(questions[currentQuestion]);
   shuffleAnswers();
-  console.log(answersArray);
-
   displayAnswers();
-
-  console.log(answer);
   eventAnswer();
+  displayCatDif();
+  console.log(questions[currentQuestion]);
+  console.log(answersArray);
+  console.log(answer);
   console.log(questions[currentQuestion].correct_answer);
+}
+
+function displayCatDif(){
+  category.textContent = `Category : ${questions[currentQuestion].category}`;
+  difficulty.textContent = `Difficulty : ${questions[currentQuestion].difficulty}`;
 }
 
 //here we display the answers in the list.
@@ -55,20 +77,21 @@ function eventAnswer() {
   }
 }
 
-function startTimer() {
-  let timeLeft = 60;
-  let timerID = setInterval(countdown, 1000);
 
-  function countdown() {
-    if (timeLeft === -1) {
-      clearInterval(timerID);
-      // Print something to say "no more time"
-    } else {
-      timer.innerHTML = timeLeft + " seconds remaining";
-      timeLeft--;
-    }
-  }
-}
+// function startTimer() {
+//   let timerID = setInterval(countdown, 1000);
+//   let timeLeft = 60;
+
+//   function countdown() {
+//     if (timeLeft === -1) {
+//       clearInterval(timerID);
+//       // Print something to say "no more time"
+//     } else {
+//       timer.innerHTML = timeLeft + " seconds remaining";
+//       timeLeft--;
+//     }
+//   }
+// }
 
 function switchQuestion() {
   currentQuestion++;
@@ -82,9 +105,19 @@ function answerCheck(evt) {
   console.log(questions[currentQuestion].correct_answer);
   if (evt.target.textContent === questions[currentQuestion].correct_answer) {
     console.log("gg");
+    counter.innerHTML = `${questionCounter ++}/50`
     button.classList.remove("is-hidden-button"); //the "next question" button appears here
   } else {
+    livesAlert();
+    playerLives --
+    lives.innerHTML = `You have ${playerLives} lives left !`;
     console.log("dommage");
+  }
+}
+
+function livesAlert() {
+  if (playerLives === 1) {
+    window.alert("You lost !");
   }
 }
 
@@ -104,67 +137,65 @@ axios
 
 //=========== PLAYER SYSTEM ============
 
-const playerButton = document.getElementById("button-player");
-const playerInput = document.querySelector("#input-player");
-const playerListDisplay = document.querySelector(".player-list");
-let turnNb = 0
+// const playerButton = document.getElementById("button-player");
+// const playerInput = document.querySelector("#input-player");
+// const playerListDisplay = document.querySelector(".player-list");
+// let turnNb = 0;
 
-const resetPlayers = () => (playerListDisplay.innerHTML = "");
+// console.log(playerListDisplay);
 
-let playerList = [];
+// const resetPlayers = () => (playerListDisplay.innerHTML = "");
 
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.lives = 3;
-    this.currentTurn = false;
-  }
-}
+// let playerList = [];
 
-function addPlayer() {
-  const boxValue = playerInput.value;
-  console.log("clicked");
-  playerList.push(new Player(playerInput.value));
-  console.log(playerList);
-  displayPlayers();
-  playerInput.value = "";
-}
+// class Player {
+//   constructor(name) {
+//     this.name = name;
+//     this.lives = 3;
+//     this.currentTurn = false;
+//   }
+// }
 
-console.log(playerButton);
-playerButton.addEventListener("click", addPlayer);
+// function addPlayer() {
+//   const boxValue = playerInput.value;
+//   console.log("clicked");
+//   playerList.push(new Player(playerInput.value));
+//   console.log(playerList);
+//   displayPlayers();
+//   playerInput.value = "";
+// }
 
-// addPlayer("Antoine", 3);
-console.log(Player);
+// console.log(playerButton);
+// playerButton.addEventListener("click", addPlayer);
 
-function deletePlayers(evt) {
-  const clickedBtn = evt.target;
-  const parentLi = clickedBtn.parentElement;
-  const EachPlayers = parentLi.querySelector(".eachPlayers").textContent;
-  const indexPlayers = playerList.indexOf(EachPlayers);
+// // addPlayer("Antoine", 3);
+// console.log(Player);
 
-  console.log("delete clicked !");
-  playerList.splice(indexPlayers, 1);
+// function deletePlayers(evt) {
+//   const clickedBtn = evt.target;
+//   const parentLi = clickedBtn.parentElement;
+//   const EachPlayers = parentLi.querySelectorAll(".eachPlayers").textContent; //PROBLEME ICI (for EACH)
+//   const indexPlayers = playerList.indexOf(EachPlayers);
 
-  parentLi.remove();
-}
+//   console.log("delete clicked !");
+//   playerList.splice(indexPlayers, 1);
 
-function displayPlayers() {
-  
-  playerListDisplay.innerHTML += `<li> <span class = "eachPlayers">${playerInput.value}</span> <button class="btn-delete">delete</button></li>`
+//   parentLi.remove();
+// }
 
-  const btnDelete = document.querySelector(".btn-delete");
-  btnDelete.addEventListener("click", deletePlayers);
-}
+// function displayPlayers() {
+//   playerListDisplay.innerHTML += `<li> <span class = "eachPlayers">${playerInput.value}</span> <button class="btn-delete">delete</button></li>`;
 
-// Player turn 
+//   const btnDelete = document.querySelector(".btn-delete");
+//   btnDelete.addEventListener("click", deletePlayers);
+// }
 
-function playerTurn(){
+// // Player turn
 
-}
+// function playerTurn() {}
 
-function lives() {
-  // if (player click on single answers === good answer){
-  //   player life -- 
-  // }
-  
-}
+// function removeLives() {
+//   name.life--;
+
+//   // retirer coeurs
+// }
