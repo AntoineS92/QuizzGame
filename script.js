@@ -40,8 +40,8 @@ function displayQuestion() {
 }
 
 function displayCatDif(){
-  category.textContent = `Category : ${questions[currentQuestion].category}`;
-  difficulty.textContent = `Difficulty : ${questions[currentQuestion].difficulty}`;
+  category.textContent = `${questions[currentQuestion].category}`;
+  difficulty.textContent = `${questions[currentQuestion].difficulty}`;
 }
 
 //here we display the answers in the list.
@@ -96,8 +96,6 @@ function eventAnswer() {
 function switchQuestion() {
   currentQuestion++;
   displayQuestion();
-  button.classList.add("is-hidden-button");
-  startTimer();
 }
 
 function answerCheck(evt) {
@@ -106,11 +104,12 @@ function answerCheck(evt) {
   if (evt.target.textContent === questions[currentQuestion].correct_answer) {
     console.log("gg");
     counter.innerHTML = `${questionCounter ++}/50`
-    button.classList.remove("is-hidden-button"); //the "next question" button appears here
-  } else {
+    switchQuestion()
+    } else {
     livesAlert();
     playerLives --
     lives.innerHTML = `You have ${playerLives} lives left !`;
+    switchQuestion()
     console.log("dommage");
   }
 }
@@ -128,8 +127,6 @@ function handleHttpResponse(ajaxResponse) {
   displayQuestion();
   return questions;
 }
-
-button.addEventListener("click", switchQuestion);
 
 axios
   .get("https://opentdb.com/api.php?amount=50&type=multiple")
