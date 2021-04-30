@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
 * {
   box-sizing: border-box;
@@ -103,6 +103,11 @@ h1 {
   margin-right: 10px;
 }
 
+#rules {
+  width: 50%;
+  text-align: center;
+}
+
 /*  ================= TOP BAR ================ */
 
 #game {
@@ -118,6 +123,8 @@ h2 {
   padding: 10px;
   color: #2d2deb;
 }
+
+    /* ===== Category and difficulty box =====*/
 
 #catdif {
   display: flex;
@@ -143,6 +150,8 @@ h2 {
   padding: 10px;
 }
 
+    /* ===== Category and difficulty box =====*/
+
 #question-box {
   padding: 20px;
   text-align: center;
@@ -159,6 +168,8 @@ h2 {
   box-shadow: 3px 3px 30px #2d2deb, -3px -3px 30px #2d2deb;
   text-align: center;
 }
+
+/* ===== Answers display ===== */
 
 .answer-screen {
   display: flex;
@@ -191,11 +202,10 @@ h2 {
 
 #answers-boxes > p:hover {
   box-shadow: 10px 5px 5px grey;
+  cursor: pointer;
 }
 
-.is-hidden-button {
-  visibility: hidden;
-}
+/* ===== Answers display ===== */
 
 footer {
   background-color: white;

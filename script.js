@@ -12,7 +12,7 @@ const difficulty = document.getElementById("difficulty");
 const counter = document.getElementById("counter");
 let playerLives = 3;
 let questionCounter = 0;
-counter.innerHTML = "0/50";
+counter.innerHTML = `${questionCounter}/50`;
 
 lives.innerHTML = `You have ${playerLives} lives left !`;
 
@@ -39,7 +39,7 @@ function displayQuestion() {
   console.log(questions[currentQuestion].correct_answer);
 }
 
-function displayCatDif(){
+function displayCatDif() {
   category.textContent = `${questions[currentQuestion].category}`;
   difficulty.textContent = `${questions[currentQuestion].difficulty}`;
 }
@@ -77,7 +77,6 @@ function eventAnswer() {
   }
 }
 
-
 // function startTimer() {
 //   let timerID = setInterval(countdown, 1000);
 //   let timeLeft = 60;
@@ -103,20 +102,26 @@ function answerCheck(evt) {
   console.log(questions[currentQuestion].correct_answer);
   if (evt.target.textContent === questions[currentQuestion].correct_answer) {
     console.log("gg");
-    counter.innerHTML = `${questionCounter ++}/50`
-    switchQuestion()
-    } else {
+    questionCounter += 1
+    counter.innerHTML = `${questionCounter}/50`;
+    switchQuestion();
+  } else {
     livesAlert();
-    playerLives --
+    evt.target.style.backgoundColor = "red";
+    playerLives--;
     lives.innerHTML = `You have ${playerLives} lives left !`;
-    switchQuestion()
+    switchQuestion();
     console.log("dommage");
   }
 }
 
 function livesAlert() {
-  if (playerLives === 1) {
-    window.alert("You lost !");
+  if (playerLives === 0) {
+    window.alert("You lost ! Click on \'ok\' to retry")
+    scroll(0,0);
+    setTimeout(() => {
+      document.location.reload();
+    }, 500);
   }
 }
 
