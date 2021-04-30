@@ -205,6 +205,32 @@ h2 {
   cursor: pointer;
 }
 
+#reponse {
+  text-align: center;
+}
+
+#good-answer {
+  background-color: RGB(97, 199, 60);
+  padding: 10px;
+  width: 150px;
+  border-radius: 25px;
+}
+
+#wrong-answer {
+  background-color: RGB(194, 88, 43);
+  padding: 10px;
+  width: 150px;
+  border-radius: 25px;
+}
+
+.good-hidden {
+  visibility: hidden;
+}
+
+.wrong-hidden {
+  visibility: hidden;
+}
+
 /* ===== Answers display ===== */
 
 footer {

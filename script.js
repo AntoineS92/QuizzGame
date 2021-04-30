@@ -10,6 +10,9 @@ const lives = document.getElementById("lives");
 const category = document.getElementById("category");
 const difficulty = document.getElementById("difficulty");
 const counter = document.getElementById("counter");
+const goodDisplay = document.querySelector(".good-answer");
+const wrongDisplay = document.querySelector(".wrong-answer");
+
 let playerLives = 3;
 let questionCounter = 0;
 counter.innerHTML = `${questionCounter}/50`;
@@ -28,7 +31,7 @@ function displayGame() {
 }
 
 function displayQuestion() {
-  questionDisplay.textContent = questions[currentQuestion].question;
+  questionDisplay.textContent = atob(questions[currentQuestion].question);
   shuffleAnswers();
   displayAnswers();
   eventAnswer();
@@ -36,19 +39,25 @@ function displayQuestion() {
   console.log(questions[currentQuestion]);
   console.log(answersArray);
   console.log(answer);
-  console.log(questions[currentQuestion].correct_answer);
+  console.log(atob(questions[currentQuestion].correct_answer));
 }
 
 function displayCatDif() {
-  category.textContent = `${questions[currentQuestion].category}`;
-  difficulty.textContent = `${questions[currentQuestion].difficulty}`;
+  category.textContent = atob(`${questions[currentQuestion].category}`);
+  difficulty.textContent = atob(`${questions[currentQuestion].difficulty}`);
 }
 
 //here we display the answers in the list.
 function displayAnswers() {
   answersList.innerHTML = "";
+  setTimeout(() => {
+    wrongDisplay.classList.add("wrong-hidden");
+    goodDisplay.classList.add("good-hidden");
+  }, 2000);
+
   answersArray.forEach((answer) => {
-    answersList.innerHTML += `<p class="single-answer">${answer}</p>`;
+    answersList.innerHTML +=
+      `<p class="single-answer">` + atob(answer) + `</p>`;
   });
 }
 
@@ -99,17 +108,20 @@ function switchQuestion() {
 
 function answerCheck(evt) {
   // here we compare the content of the event with the correct answer data
-  console.log(questions[currentQuestion].correct_answer);
-  if (evt.target.textContent === questions[currentQuestion].correct_answer) {
+  if (
+    evt.target.textContent === atob(questions[currentQuestion].correct_answer)
+  ) {
     console.log("gg");
-    questionCounter += 1
+    questionCounter += 1;
     counter.innerHTML = `${questionCounter}/50`;
+    goodDisplay.classList.remove("good-hidden");
     switchQuestion();
   } else {
     livesAlert();
     evt.target.style.backgoundColor = "red";
     playerLives--;
     lives.innerHTML = `You have ${playerLives} lives left !`;
+    wrongDisplay.classList.remove("wrong-hidden");
     switchQuestion();
     console.log("dommage");
   }
@@ -117,8 +129,8 @@ function answerCheck(evt) {
 
 function livesAlert() {
   if (playerLives === 0) {
-    window.alert("You lost ! Click on \'ok\' to retry")
-    scroll(0,0);
+    window.alert("You lost ! Click on 'ok' to retry");
+    scroll(0, 0);
     setTimeout(() => {
       document.location.reload();
     }, 500);
@@ -134,7 +146,7 @@ function handleHttpResponse(ajaxResponse) {
 }
 
 axios
-  .get("https://opentdb.com/api.php?amount=50&type=multiple")
+  .get("https://opentdb.com/api.php?amount=50&type=multiple&encode=base64")
   .then(handleHttpResponse);
 
 //=========== PLAYER SYSTEM ============
